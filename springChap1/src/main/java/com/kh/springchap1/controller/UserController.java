@@ -17,7 +17,7 @@ import com.kh.springchap1.repository.UserRepository;
 //UserController
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin(origins = "http://localhost:8010", allowCredentials = "true")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class UserController {
 	@Autowired
 	private UserRepository userRepository;
