@@ -1,41 +1,43 @@
-import React,{useState} from "react";
+// AddProduct.js
+import React, { useState } from "react";
 import axios from "axios";
 
-function Addproduct({ onAddProduct }) {
-  const [newProduct, setNewProduct] = useState({product_name: "",price: 0, });
-  
+function AddProduct({ onAddProduct }) {
+  const [newProduct, setNewProduct] = useState({ product_name: "", price: 0 });
 
   const handleInputChange = (e) => {
     const { product_name, value } = e.target;
-    setNewProduct((prevProduct) => ({...prevProduct,[product_name]: value,}));
+    setNewProduct((prevProduct) => ({ ...prevProduct, [product_name]: value }));
   };
+
   const handleAddProduct = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8082/api/add",
+        "http://localhost:8081/api/add",
         newProduct,
         { withCredentials: true }
       );
-      onAddProduct(response.data);
+      onAddProduct((prevProducts) => [...prevProducts, response.data]);
       setNewProduct({ product_name: "", price: 0 });
     } catch (error) {
-      console.error("데이터 부적합합니다.", error);
+      console.error("error:", error);
     }
   };
+
   return (
     <div>
-      <h2>상품 추가</h2>
+      <h2>새로운 제품 추가</h2>
       <div>
-        <label>상품명 : </label>
+        <label>이름:</label>
         <input
           type="text"
-          name="product_name"
+          name="name"
           value={newProduct.product_name}
           onChange={handleInputChange}
         />
       </div>
       <div>
-        <label> 상품 가격 : </label>
+        <label>가격:</label>
         <input
           type="number"
           name="price"
@@ -43,10 +45,9 @@ function Addproduct({ onAddProduct }) {
           onChange={handleInputChange}
         />
       </div>
-      <button onClick={handleAddProduct}>상품 추가하기</button>
+      <button onClick={handleAddProduct}>제품 추가</button>
     </div>
   );
 }
 
-
-export default Addproduct;
+export default AddProduct;
