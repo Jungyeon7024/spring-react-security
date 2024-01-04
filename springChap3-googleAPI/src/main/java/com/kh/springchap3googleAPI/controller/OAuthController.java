@@ -27,7 +27,8 @@ public class OAuthController {
 	 public String loginSuccess(@AuthenticationPrincipal OAuth2User oauthUser, Model model) {
 	     String email = oauthUser.getAttribute("email");
 	     UserGoogle user = userService.findByUsername(email);
-
+	     System.out.println("OAuth2User: " + oauthUser);
+	     System.out.println("이메일 속성: " + email);
 	     if (user == null) {
 	         user = new UserGoogle();
 	         user.setUsername(email);
