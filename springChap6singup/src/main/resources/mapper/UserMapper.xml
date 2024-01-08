@@ -1,0 +1,13 @@
+<!-- MembersBapper.xml -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+			"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+			
+<mapper namespace="com.kh.mapper.UsersMapper">
+<insert id="insertUser" parameterType="com.kh.model.User">
+    INSERT INTO Users
+        (UserID, Username, Password, FullName, Email, RegistrationDate)
+    VALUES
+        (users_seq.NEXTVAL, #{username}, #{password}, #{fullName}, #{email}, #{registrationDate, jdbcType=DATE})
+</insert>
+
+</mapper>

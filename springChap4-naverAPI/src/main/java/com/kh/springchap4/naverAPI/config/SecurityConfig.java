@@ -32,7 +32,7 @@ public class SecurityConfig {
 		//naverClientRegistration 
 		 @Bean
 		    public ClientRegistrationRepository clientRegistrationRepository() {
-		        return new InMemoryClientRegistrationRepository(naverClientRegistration(),googleClientRegistration());
+		        return new InMemoryClientRegistrationRepository(naverClientRegistration(),kakaoClientRegistration(),googleClientRegistration());
 		    }
 		 // 네이버 클라이언트의 등록 정보를 생성하는 메서드
 		 // 클라이언트 아이디와 시크릿, 인증 후 리다이렉트 URL설정
@@ -86,6 +86,19 @@ public class SecurityConfig {
 		                .jwkSetUri("https://www.googleapis.com/oauth2/v3/certs")
 		                .build();
 		    }
-		  
+			public ClientRegistration kakaoClientRegistration() {
+				return ClientRegistration.withRegistrationId("kakao")
+						.clientId("4bec4086e3499d1d7569601f8c987f8d")
+						.clientSecret("z0bNunQsk71ZbErkPJuEqgXuLit4F5br")
+						.redirectUri("http://localhost:8080/login/oauth2/code/kakao")
+		                .clientName("Kakao")
+		                .authorizationUri("https://kauth.kakao.com/oauth/authorize")
+		                .tokenUri("https://kauth.kakao.com/oauth/token")
+		                .userInfoUri("https://kapi.kakao.com/v2/user/me")
+		                .userNameAttributeName("id")
+		                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+		                .scope("profile_nickname", "profile_image", "account_email") 
+		                .build();
+			}
 		  
 }	
